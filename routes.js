@@ -18,4 +18,14 @@ router.post("/items", (req, res, next) => {
   });
 });
 
+router.get("/items/:name", (req, res, next) => {
+  const item = items.find(
+    (item) => item.name === req.params.name.toLowerCase()
+  );
+
+  return res.status(200).json({
+    item,
+  });
+});
+
 module.exports = router;
