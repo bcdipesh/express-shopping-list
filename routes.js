@@ -33,7 +33,7 @@ router.patch("/items/:name", (req, res, next) => {
     (item) => item.name === req.params.name.toLowerCase()
   );
 
-  if (itemIndex) {
+  if (itemIndex !== -1) {
     items[itemIndex] = {
       name: req.body.name || items[itemIndex].name,
       price: req.body.price || items[itemIndex].price,
@@ -42,6 +42,20 @@ router.patch("/items/:name", (req, res, next) => {
 
   return res.status(200).json({
     updated: items[itemIndex],
+  });
+});
+
+router.delete("/items/:name", (req, res, next) => {
+  let itemIndex = items.findIndex(
+    (item) => item.name === req.params.name.toLowerCase()
+  );
+
+  if (itemIndex !== -1) {
+    items.splice(itemIndex, 1);
+  }
+
+  return res.status(200).json({
+    message: "Deleted",
   });
 });
 
