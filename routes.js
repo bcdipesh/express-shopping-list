@@ -28,4 +28,21 @@ router.get("/items/:name", (req, res, next) => {
   });
 });
 
+router.patch("/items/:name", (req, res, next) => {
+  let itemIndex = items.findIndex(
+    (item) => item.name === req.params.name.toLowerCase()
+  );
+
+  if (itemIndex) {
+    items[itemIndex] = {
+      name: req.body.name || items[itemIndex].name,
+      price: req.body.price || items[itemIndex].price,
+    };
+  }
+
+  return res.status(200).json({
+    updated: items[itemIndex],
+  });
+});
+
 module.exports = router;
