@@ -8,4 +8,14 @@ router.get("/items", (req, res, next) => {
   });
 });
 
+router.post("/items", (req, res, next) => {
+  if (req.body) {
+    items.push(req.body);
+  }
+
+  return res.status(201).json({
+    added: req.body,
+  });
+});
+
 module.exports = router;
